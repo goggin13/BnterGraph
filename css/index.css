@@ -1,0 +1,37 @@
+body{
+	padding:0px;
+	margin:0px;
+	background:black;
+	color:white;
+}
+
+#header {
+	text-align:center;
+	font-size:2em;
+	position:absolute;
+	width:100%;
+	display:none;
+}
+
+#stats_div {
+  border: thin solid darkgray;
+  height: 125px;
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  width: 175px;
+	background:rgb(50, 50, 50);
+	display:none;
+}
+
+#stats_div th{
+  text-align:left;
+}
+
+#stats_div table{
+width:100%;
+}
+
+#stats_div td{
+  text-align:center;
+}
