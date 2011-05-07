@@ -9,14 +9,19 @@ class Node{
    int yMin = 0 + radius;
    int yMax = SCREEN_HEIGHT - radius;
    int id = 0;
+   int infoWidth = 40;
+   int infoHeight = 40;
    color nodeColor = color(0, 0, 255);
-   
-   Node(int i) {
+   color hoverColor = color(0, 255, 0);
+	 Graph parent;
+	
+   Node(int i, Graph g) {
      id = i;
      posX = random(xMin, xMax);
      posY = random(yMin, yMax);
      velX = random(-.1, .1); //(int)random(1, 1);
      velY = random(-.1, .1); //(int)random(1, 1);
+     parent = g;
    }
    
    void move() {
@@ -31,10 +36,25 @@ class Node{
      }
      draw();
   } 
-     
+  
+  void showInfo() {
+		rect(posX, posY, infoWidth, infoHeight);
+  }
+
+	boolean isHoveredOn() {
+		return abs(mouseX - posX) < radius && abs(mouseY - posY) < radius;
+	}
+
   void draw() {
    noStroke();
-   fill(nodeColor);
+   if (isHoveredOn()) {
+	   fill(hoverColor);
+		 showInfo();
+		 //parent.pause();
+	 } else {
+		//parent.start();
+		fill(nodeColor);
+	 }
    ellipse(posX, posY, radius, radius);
   }
   

@@ -6,3 +6,8 @@ class IPOAuth(db.Model):
     request_secret = db.StringProperty()
     oauth_token = db.StringProperty()
     oauth_token_secret = db.StringProperty()
+
+class Edge(db.Model):
+  node1 = db.IntegerProperty()
+  node2 = db.IntegerProperty()
+  weight = db.IntegerProperty()
