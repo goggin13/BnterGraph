@@ -12,8 +12,8 @@ handlers:
 - url: /js
   static_dir: js
 
-- url: /pde
-  static_dir: pde
+- url: /main
+  static_dir: main
 
 - url: /css
   static_dir: css

@@ -1,15 +1,58 @@
+<link rel="stylesheet" type="text/css" href="../css/index.css" /> 
+<link rel="shortcut icon" href="css/images/graph.png" /> 
+{% if not user_name %}
+	<div id='user_name_form'>
+		<a href="http://www.bnter.com" title="Bnter" target="_blank">
+			<img src="http://bnter.com/web/assets/images/bnter_logo_large.png" alt="bnter.com">
+		</a>
+		<p>Enter your Bnter username to see who's talking in your network</p>
+		<form method="GET">
+			<input type='text' name="user_name"> <br/>
+			<input class='submit' type='submit' value='Graph me'>
+		</form>
+	</div>
+{% else %}
 <script type="text/javascript">
 	var oApp = {
-		'user_id': {{user_id}}
+		'user_name': '{{user_name}}'
 	};
 </script>
 <script src="../js/processing.js"></script> 
 <script src="../js/jquery.js"></script> 
-<link rel="stylesheet" type="text/css" href="../css/index.css" /> 
+<script type="text/javascript">
+	$(document).ready(function () {
+		var remove = function () {
+			$('#explanation').fadeOut(function () {
+				$('#explanation').remove();
+			});
+		};
+		setTimeout(remove, 10000);
+		$('#explanation').click(function () {
+			$(this).fadeOut();
+		});
+	});
+</script>
+
 <div id="header">
 	Your Bnter network
 </div>
-<canvas data-processing-sources="../pde/Main.pde.java ../pde/PB.pde.java ../pde/Graph.pde.java 	../pde/Edge.pde.java ../pde/Node.pde.java">
+<div id="loading">
+	<img src='css/images/loading.gif' alt="Loading..." />
+	<p></p>
+</div>
+<div id="explanation">
+	<p>
+		The nodes on the screen represent Bnter users, and lines are drawn between users who are attributed
+		in a common conversation.  Thicker lines represent users who have more conversations in common.
+	</p>
+	<p>
+		Click on any node to expand the graph, bringing in all the users in their attribution graph as well
+	</p>
+	<p>
+		Click to dismiss
+	</p>
+</div>
+<canvas data-processing-sources="../main/Main_web.pde.js ../main/Graph.pde 	../main/Edge.pde ../main/Node.pde">
 </canvas>
 
 
@@ -17,23 +60,24 @@
 	<table>
 		<tr>
 			<th>Friends</th>
-			<td>...</td>
+			<td id='friends'></td>
 		</tr>
 		<tr>
 			<th>Conversations</th>
-			<td>...</td>
+			<td id='conversations'></td>
 		</tr>
 		<tr>
 			<th>Strongest Edge</th>
-			<td>...</td>
+			<td id='strongest_edge'></td>
 		</tr>
 		<tr>
 			<th>Largest Subgroup</th>
-			<td>...</td>
+			<td></td>
 		</tr>
 		<tr>
 			<th>Individuals</th>
-			<td>...</td>
+			<td></td>
 		</tr>
 	</table>		
 </div>
+{% endif %}

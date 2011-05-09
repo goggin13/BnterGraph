@@ -6,11 +6,11 @@ body{
 }
 
 #header {
-	text-align:center;
-	font-size:2em;
-	position:absolute;
-	width:100%;
-	display:none;
+font-size: 2em;
+    left: 20%;
+    position: absolute;
+    text-align: center;
+    width: 300px;
 }
 
 #stats_div {
@@ -34,4 +34,92 @@ width:100%;
 
 #stats_div td{
   text-align:center;
+}
+
+input {
+	-moz-border-radius: 5px;
+  -webkit-border-radius: 5px; /* Saf3+, Chrome */
+          border-radius: 5px; /* Opera 10.5, IE 9 */
+  border-color: #E4E4E4 #D2D2D2 #B4B4B4;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 1.077em;
+  font-weight: normal;
+  margin: 0px 25%;
+	width:200px;
+	margin-left:100px;
+	margin-bottom:15px;
+}
+
+input.submit {
+-moz-border-radius: 20px;
+  -webkit-border-radius: 20px; /* Saf3+, Chrome */
+          border-radius: 20px; /* Opera 10.5, IE 9 */
+    background: url("images/buttons.png") repeat-x scroll 0 0 transparent;
+    border-color: #E4E4E4 #D2D2D2 #B4B4B4;
+    border-style: solid;
+    border-width: 1px;
+    color: #5A5A5A;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 1.077em;
+    font-weight: normal;
+    padding: 4px 17px;
+    text-align: center;
+		width:150px;
+		margin-left:125px;
+}
+
+#user_name_form p {
+color: black;
+  margin-left: 90px;
+  width: 220px;
+}
+#user_name_form {
+     -moz-border-radius: 20px; /* FF1+ */
+  -webkit-border-radius: 20px; /* Saf3+, Chrome */
+          border-radius: 20px; /* Opera 10.5, IE 9 */
+background: none repeat scroll 0 0 white;
+    height: 250px;
+    margin: 9% auto;
+    padding: 25px 0;
+    width: 400px;
+}
+#user_name_form img{
+border: medium none;
+    margin-left: 75px;
+    width: 250px;
+}
+#loading {
+background: none repeat scroll 0 0 black;
+position:absolute;
+font-size: 20px;
+opacity: 0.7;
+width: 30%;
+left:70%;
+text-align:center;
+}
+#loading p{
+	margin:0px;
+	padding-top:15px;
+}
+#loading img {
+	float:right;
+}
+
+#explanation{
+	     -moz-border-radius: 20px; /* FF1+ */
+  -webkit-border-radius: 20px; /* Saf3+, Chrome */
+          border-radius: 20px; /* Opera 10.5, IE 9 */
+background: none repeat scroll 0 0 maroon;
+    height: 200px;
+    left: 0;
+    margin: 3px;
+    opacity: 0.95;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 400px;
+    z-index: 99;
 }

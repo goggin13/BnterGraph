@@ -58,6 +58,7 @@ class BnterOAuth():
       oauth_token_secret = request_token['oauth_token_secret']
       self.IP_OAuth = IPOAuth(ip = self.IP, 
                      request_token = oauth_token,
+							oauth_token = '',
                      request_secret = oauth_token_secret)
       self.IP_OAuth.put()
       
