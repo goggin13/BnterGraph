@@ -122,4 +122,5 @@ background: none repeat scroll 0 0 maroon;
     top: 0;
     width: 400px;
     z-index: 99;
+		border: medium solid white;
 }

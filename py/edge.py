@@ -29,8 +29,8 @@ class EdgeSet():
       key = n1 + n2
       if key in self.keys:
          for e in self.edges:
-            if e['node1'] == n1 and e['node2'] == n2:
-               e['weight'] += 1;
+            if e['node1']['name'] == n1 and e['node2']['name'] == n2:
+               e['weight'] += 1
       else:
          self.edges.append({
             'node1': {

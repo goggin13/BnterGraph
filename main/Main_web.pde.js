@@ -5,7 +5,10 @@ color backgroundColor = color(0, 0, 0);
 String activeNode = "";
 int clickedX = 0;
 int clickedY = 0;
+int maxDisplayEdgeWeight = 7;
+int maxEdgeWeight = 1;
 boolean isLoading = false;
+var yourUsername = oApp.user_name;
 
 var stats = {
 	'friends': 0,
@@ -68,6 +71,7 @@ function loadFriends (username) {
 				w = ele['weight'];
 			if (w > stats.strongest_edge) {
 				stats.strongest_edge = w;
+				maxEdgeWeight = w;
 			}
 			stats.friends++;
 			stats.conversations += w;

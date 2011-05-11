@@ -20,14 +20,16 @@ class Node{
    color nodeColor = color(131, 245, 44);
    color matureColor = color(0, 0, 255);
    color hoverColor = backgroundColor;
+   color youColor = color(255, 0, 0);
    color beenClickedColor = color(255, 255, 255);
    color speedUpColor = color(255, 0, 0);
    Graph graph;
    boolean isPaused = false;
    PImage nodeImage;
    int speedUpTimer = 0;
-   int newBornTimer = 200;
+   int newBornTimer = 100;
    boolean hasBeenClickedOn = false;
+   boolean isYou = false;
    
    // The unique indentifier for this node, and the graph to put it on
    Node(String i, String url, Graph g) {
@@ -38,6 +40,11 @@ class Node{
      velY = random(-maxVel, maxVel); //(int)random(1, 1);
      graph = g; 
      nodeImage = loadImage(url);
+     if (yourUsername.equals(i)) {
+       matureColor = youColor;
+       isYou = true;
+       radius = radius * 2;
+     }
    }
    
    // adjusts the nodes x,y based on its velocity, and then

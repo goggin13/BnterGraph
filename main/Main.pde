@@ -9,6 +9,9 @@ color backgroundColor = color(0, 0, 0);
 String activeNode = "";
 int clickedX = 0;
 int clickedY = 0;
+int maxEdgeWeight = 10;
+int maxDisplayEdgeWeight = 5;
+String yourUsername = "matt";
 
 void setup() {
   g = new Graph();
@@ -19,7 +22,7 @@ void setup() {
   g.addEdge("matt", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 
             "kdiver", "http://bnter.com/web/assets/images/7483__w50_h50.png", 5);
   g.addEdge("matt", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 
-            "patrick", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 5);
+            "patrick", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 10);
   g.addEdge("lalando", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 
             "matt", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 3);
 }
