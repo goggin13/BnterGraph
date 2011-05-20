@@ -3,13 +3,12 @@ class Ring {
   float radius;
   float centerX;
   float centerY;
-  color ringColor = color(139, 137, 137);
+  color ringColor = color(15, 25, 255);
   ArrayList planets;
   int counter = 0;
   
-  Ring (float r) {
-    println(r);
-    radius = r;
+  Ring (float ringRadius) {
+    radius = ringRadius;
     centerX = SCREEN_WIDTH / 2;
     centerY = SCREEN_HEIGHT / 2;
     planets = new ArrayList();
@@ -43,6 +42,9 @@ class Ring {
   }
   
   void draw () {
+    if (planets.size() == 0) {
+      return;
+    }
     drawMe();
     drawPlanets();
   }

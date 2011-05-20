@@ -1,9 +1,9 @@
 class SolarSystem {
-  float centerRadius = 20;
+  float centerRadius = 40;
   float posX = (SCREEN_WIDTH) / 2;
   float posY = (SCREEN_HEIGHT) / 2;
   float padding = 30;
-  color centerColor = color(0, 0, 255);
+  color centerColor = color(208, 94, 52);
   int counter = 0;
   float maxPlanetWeight = 0;
   String root_nid;
@@ -39,9 +39,9 @@ class SolarSystem {
   }
   
   void addPlanetToRing (Planet p) {
-    Ring r = getRingForWeight(p.getWeight());
-    r.addPlanet(p);
-    p.setRing(r);
+    Ring ring = getRingForWeight(p.getWeight());
+    ring.addPlanet(p);
+    p.setRing(ring);
   }
   
   void drawRings () {
@@ -55,13 +55,12 @@ class SolarSystem {
   void flushRings () {
     Iterator it = rings.keySet().iterator();
     while (it.hasNext ()) {
-      Ring r = (Ring)rings.get(it.next());
-      r.flushPlanets();
+      Ring ring = (Ring)rings.get(it.next());
+      ring.flushPlanets();
     }
   }
   
   void rehashPlanets () {
-    println("redo");
     flushRings();
     Iterator it = planets.iterator();
     while (it.hasNext ()) {
@@ -74,6 +73,9 @@ class SolarSystem {
     // change weight to an int between 0 and ringCount
     float pct = weight / maxPlanetWeight * 10;
     int ringNum = ringCount - round(pct);
+    if (ringNum == ringCount) {
+      ringNum--;
+    }
     return (Ring)rings.get(ringNum);
   }
   
@@ -86,15 +88,15 @@ class SolarSystem {
     planetList.add(nid);
     planets.add(p);
     if (weight > maxPlanetWeight) {
-       println("new max " + weight);
-       maxPlanetWeight = weight;
-       rehashPlanets();
+      maxPlanetWeight = weight;
+      rehashPlanets();
     } else {
       addPlanetToRing(p);
     }
   }
   
   void draw () {
+    //background(bg_img);
     background(backgroundColor);
     drawCenter();
     drawRings();

@@ -8,25 +8,22 @@ class Planet {
   float posY;
   float weight;
   float orbitRadius;
+  float orbitAngle = 0;
   PImage nodeImage;
+  float velocity;
   
   Planet (String id, String url, float w) {
     planet_id = id;
     planet_url = url;
     weight = w;
     nodeImage = loadImage(url);
+    orbitAngle = random(1, 628) / 100; 
+    velocity = random(-1, 1) > 0 ? .01 : -.01;
+    move();
   }
   
-  void setRing (Ring o) {
-    orbitRadius = o.getRadius();
-    // r^2 = x^2 + y^2
-    if (random(-1, 1) > 0) {
-      posX = CENTER_X + (random(-1, 1) > 0 ? 1 : -1) * orbitRadius;
-      posY = CENTER_Y;
-    } else {
-      posY = CENTER_Y + (random(-1, 1) > 0 ? 1 : -1) * orbitRadius;
-      posX = CENTER_X;
-    }
+  void setRing (Ring ring) {
+    orbitRadius = ring.getRadius();
   }
   
   // true if the mouse is currently hovering on this node
@@ -34,16 +31,10 @@ class Planet {
     return abs(mouseX - posX) < hoverRadius && abs(mouseY - posY) < hoverRadius;
   }
   
-  void getNextX () {
-    
-  }
-
-  void getNextY () {
-   
-  }
-
-  void erase () {
-    
+  void move () {
+    orbitAngle += velocity;
+    posX = CENTER_X + orbitRadius * cos(orbitAngle); 
+    posY = CENTER_Y + orbitRadius * sin(orbitAngle);    
   }
   
   float getWeight () {
@@ -60,15 +51,17 @@ class Planet {
   void drawPlanet () {
     stroke(planetColor);
     fill(planetColor);
-    //println(planet_id + " : (" + posX + ", " + posY + ")");
-    ellipse(posX, posY, radius, radius);  
+    ellipse(posX++, posY++, radius, radius);  
   }
   
   void draw () {
     if (isHoveredOn()) {
       showInfo();
+    } else {
+      move();
+      drawPlanet();
     }
-    drawPlanet();
+    
   }
 }
 

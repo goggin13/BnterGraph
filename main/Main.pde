@@ -15,10 +15,16 @@ String yourUsername = "matt";
 VizManager manager;
 float CENTER_X = (SCREEN_WIDTH) / 2;
 float CENTER_Y = (SCREEN_HEIGHT) / 2;
+String bg_url = "http://lh5.ggpht.com/BJd07kKZyj7L7-Y0KH54Osqm8vRZJ7giQJIHqQBusPjfqtG-Ezjg5nPrcjksOfwRV9kAK0YT_3tGmAk";
+PImage bg_img;
+
 
 void setup() {
-  manager = new VizManager();
+  bg_url += "=s" + SCREEN_WIDTH + "-c";
+  bg_img = loadImage(bg_url, "png");
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
+  manager = new VizManager();
+  
   manager.addEdge("matt", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 
             "lauren", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 2);
   manager.addEdge("matt", "http://bnter.com/web/assets/images/8996__w50_h50.jpg", 
@@ -31,7 +37,6 @@ void setup() {
 
 void loadMoreFriends(String name) {
   if (name.length() > 0) {
-    println(name);
   }
 }
 

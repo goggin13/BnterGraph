@@ -18,6 +18,10 @@ class VizManager {
     graphType = t;
   }
   
+  String getGraphType () {
+    return graphType;
+  }
+  
   void draw () {
     if (graphType.equals("graph")) {
       graph.draw();

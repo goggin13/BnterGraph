@@ -1,5 +1,5 @@
-int SCREEN_WIDTH = window.innerWidth * .99;
-int SCREEN_HEIGHT = window.innerHeight * .99;
+int SCREEN_WIDTH = round(window.innerWidth * .99);
+int SCREEN_HEIGHT = round(window.innerHeight * .99);
 Graph g;
 color backgroundColor = color(0, 0, 0);
 String activeNode = "";
@@ -8,8 +8,13 @@ int clickedY = 0;
 int maxDisplayEdgeWeight = 7;
 int maxEdgeWeight = 1;
 boolean isLoading = false;
-var yourUsername = oApp.user_name;
+VizManager manager;
+float CENTER_X = (SCREEN_WIDTH) / 2;
+float CENTER_Y = (SCREEN_HEIGHT) / 2;
+String bg_url = "http://lh5.ggpht.com/BJd07kKZyj7L7-Y0KH54Osqm8vRZJ7giQJIHqQBusPjfqtG-Ezjg5nPrcjksOfwRV9kAK0YT_3tGmAk";
+PImage bg_img;
 
+var yourUsername = oApp.user_name;
 var stats = {
 	'friends': 0,
 	'conversations': 0,
@@ -17,9 +22,10 @@ var stats = {
 };
 
 void setup() {
-  g = new Graph();
+	bg_url += "=s" + SCREEN_WIDTH + "-c";
+  manager = new VizManager();
+  bg_img = loadImage(bg_url, "png");
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
-  background(backgroundColor);
 	$('#header').show('slow');
 	$('#stats_div').show('slow');
 	updateFriends();
@@ -75,7 +81,7 @@ function loadFriends (username) {
 			}
 			stats.friends++;
 			stats.conversations += w;
-			g.addEdge(n1['name'], n1['image'], n2['name'], n2['image'], w);
+			manager.addEdge(n1['name'], n1['image'], n2['name'], n2['image'], w);
 		});
 		for (key in stats) {
 			$("#" + key).html(stats[key]);
@@ -86,10 +92,21 @@ function loadFriends (username) {
 } 
 
 void draw() {
-  g.draw();
+  manager.draw();
   clickedX = 0;
   clickedY = 0;
 }
+
+
+$('#stats_div').click(function () {
+	var type = manager.getGraphType();
+	if (type === 'solar') {
+		manager.setGraphType('graph');
+	} else {
+		manager.setGraphType('solar');
+	}
+});
+
 
 
 
