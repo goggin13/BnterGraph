@@ -6,16 +6,16 @@ body{
 }
 
 #header {
-font-size: 2em;
-    left: 20%;
-    position: absolute;
-    text-align: center;
-    width: 300px;
+	font-size: 2em;
+  left: 20%;
+  position: absolute;
+  text-align: center;
+  width: 400px;
 }
 
 #stats_div {
   border: thin solid darkgray;
-  height: 125px;
+  height: 150px;
   position: absolute;
   top: 1%;
   left: 1%;
@@ -80,16 +80,18 @@ color: black;
   -webkit-border-radius: 20px; /* Saf3+, Chrome */
           border-radius: 20px; /* Opera 10.5, IE 9 */
 background: none repeat scroll 0 0 white;
-    height: 250px;
+    height: 350px;
     margin: 9% auto;
     padding: 25px 0;
     width: 400px;
 }
-#user_name_form img{
+#bnter_logo{
 border: medium none;
-    margin-left: 75px;
-    width: 250px;
+margin-left: 75px;
+width: 250px;
+color:transparent;
 }
+
 #loading {
 background: none repeat scroll 0 0 black;
 position:absolute;
@@ -124,3 +126,10 @@ background: none repeat scroll 0 0 maroon;
     z-index: 99;
 		border: medium solid white;
 }
+
+#graph_toggle {
+	text-align:center;
+	padding:15px;
+}
+
+#processing_logo

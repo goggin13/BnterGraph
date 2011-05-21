@@ -60,21 +60,24 @@ class Bnter():
       return dict(id=int(conversation['id']), users=users)
 
    # a list of {cid:xx, [user1, user2, user3]}
-   def getAttributionSets(self, screen_name):
+   def getAttributionSets(self, screen_name, page):
       data = {
          'per_page': 50,
-         'page': 1,
+         'page': page,
          'user_screen_name': screen_name
       }
       response = self.request('user/mentions.json', data)
       sets = self.extractUsersFromResponse(response)
 
-      for i in range(2, response['total_pages']):
-         data['page'] = i
-         response = self.request('user/mentions.json', data)
-         sets.extend(self.extractUsersFromResponse(response))
-      return sets
-
+      #for i in range(2, response['total_pages']):
+         #data['page'] = i
+         #response = self.request('user/mentions.json', data)
+         #sets.extend(self.extractUsersFromResponse(response))
+      return {
+         'nodeSets': sets,
+         'page': int(page),
+         'pageCount': int(response['total_pages'])
+      }
 
 #b = Bnter('57ad8624c3bfae2193bd5dbec40d59fa')
 #b.getUserDashboard()

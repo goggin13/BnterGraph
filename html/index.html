@@ -2,7 +2,7 @@
 <link rel="shortcut icon" href="css/images/graph.png" /> 
 {% if not user_name %}
 	<div id='user_name_form'>
-		<a href="http://www.bnter.com" title="Bnter" target="_blank">
+		<a href="http://www.bnter.com" title="Bnter" id="bnter_logo" target="_blank">
 			<img src="http://bnter.com/web/assets/images/bnter_logo_large.png" alt="bnter.com">
 		</a>
 		<p>Enter your Bnter username to see who's talking in your network</p>
@@ -10,15 +10,32 @@
 			<input type='text' name="user_name"> <br/>
 			<input class='submit' type='submit' value='Graph me'>
 		</form>
+		<p>
+			Special thanks to...
+			<a href="http://processing.org/" style="color:transparent" target="_blank">
+				<img id="processing_logo" src="http://lh5.ggpht.com/ddP0uXuAXrvU64eiRiS9Q7PIc0koj0-t4JsCxKpnh0AeLRZFQxC69frK5Mr_zr7df7BVFsX64XEoPQ=s40" alt="processing log" />
+			</a>
+			<a href="http://processingjs.org/" style="color:transparent; height:50px; width:50px" target="_blank">
+				<img id="processingjs_logo" src="http://lh4.ggpht.com/teEmFKLA-9-1A5gTt4QRjt_5ZdReYN1ipysIOOnX3UWfXBw38oOwdNR-5Pa-IAoURR0lfI-M0PfUScY=s40" alt="processing log" />
+			</a>
+			
+		</p>
 	</div>
 {% else %}
+<script src="../js/jquery.js"></script> 
 <script type="text/javascript">
 	var oApp = {
-		'user_name': '{{user_name}}'
+		'user_name': '{{user_name}}',
+		'default_graph_type': 'solar'
 	};
+	if (oApp.default_graph_type === 'solar') {
+		$('.graph').hide();
+	} else {
+		$('solar').hide();
+	}
 </script>
 <script src="../js/processing.js"></script> 
-<script src="../js/jquery.js"></script> 
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		var remove = function () {
@@ -34,25 +51,43 @@
 </script>
 
 <div id="header">
-	Your Bnter network
+	<span class="graph">Your Bnter Network</span>
+	<span class="solar">Your Bnter Solar System</span>
 </div>
 <div id="loading">
 	<img src='css/images/loading.gif' alt="Loading..." />
 	<p></p>
 </div>
-<div id="explanation">
-	<p>
-		The nodes on the screen represent Bnter users, and lines are drawn between users who are attributed
-		in a common conversation.  Thicker lines represent users who have more conversations in common.
-	</p>
-	<p>
-		Click on any node to expand the graph, bringing in all the users in their attribution graph as well
-	</p>
-	<p>
-		Click to dismiss
-	</p>
-</div>
-<canvas data-processing-sources="../main/Main_web.pde.js ../main/Graph.pde 	../main/Edge.pde ../main/Node.pde ../main/SolarSystem.pde ../main/Ring.pde ../main/Planet.pde ../main/VizManager.pde">
+
+{% if not hide_welcome %}
+	<div id="explanation">
+		<div class="graph">
+			<p>
+				The nodes on the screen represent Bnter users, and lines are drawn between users who are attributed
+				in a common conversation.  Thicker lines represent users who have more conversations in common.
+			</p>
+			<p>
+				Click on any node to expand the graph, bringing in all the users in their attribution graph as well
+			</p>
+			<p>
+				Click to dismiss
+			</p>
+		</div>
+		<div class="solar">
+			<p>
+				The planets are other Bnter users who you have been attributed in converations with.  The larger
+				the planets, and the closer their orbit to the sun (you), the more conversations you have in common.
+			</p>
+			<p>
+				Click on any planet to change to warp to their solar system.
+			</p>
+			<p>
+				Click to dismiss
+			</p>
+		</div>
+	</div>
+{% endif %}
+<canvas data-processing-sources="../main/Main_web.pde.js ../main/Graph.pde 	../main/Edge.pde ../main/Node.pde ../main/SolarSystem.pde ../main/Ring.pde ../main/Planet.pde ../main/VizManager.pde ../main/Info.pde">
 </canvas>
 
 
@@ -67,17 +102,24 @@
 			<td id='conversations'></td>
 		</tr>
 		<tr>
-			<th>Strongest Edge</th>
+			<th>
+				<span class="graph">Strongest Edge</span>
+				<span class="solar">Largest Planet</span>
+			</th>
 			<td id='strongest_edge'></td>
 		</tr>
-		<tr>
-			<th>Largest Subgroup</th>
-			<td></td>
-		</tr>
-		<tr>
-			<th>Individuals</th>
-			<td></td>
-		</tr>
-	</table>		
+	</table>
+	<p id="graph_toggle">
+		Click me to see your Bnter
+		<span class="graph">Solar System</span>
+		<span class="solar">Network</span>
+	</p>		
 </div>
+<script type="text/javascript">
+	if (oApp.default_graph_type === 'solar') {
+		$('.graph').hide();
+	} else {
+		$('solar').hide();
+	}
+</script>
 {% endif %}

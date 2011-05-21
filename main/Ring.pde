@@ -45,7 +45,10 @@ class Ring {
     if (planets.size() == 0) {
       return;
     }
-    drawMe();
+    
+    if (!solarSystemIsPaused) {
+      drawMe();
+    }
     drawPlanets();
   }
   

@@ -108,7 +108,6 @@ class Node{
      showInfo();
      isPaused = true;
      speedUpTimer = 201;
-     activeNode = getNid();
    } else {
     isPaused = false;
     if (speedUpTimer > 0) {

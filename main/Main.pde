@@ -1,12 +1,9 @@
+/* 
+ * This is the main script for development, in the Processing environment.
+ * For production, in a web browser, see Main_web.pde.js */
 int SCREEN_WIDTH = 1000;
 int SCREEN_HEIGHT = 1000;
-BufferedReader reader;
-String line;
-ArrayList conversations;
-ArrayList nodes;
-Graph g;
 color backgroundColor = color(0, 0, 0);
-String activeNode = "";
 int clickedX = 0;
 int clickedY = 0;
 int maxEdgeWeight = 10;
@@ -15,13 +12,13 @@ String yourUsername = "matt";
 VizManager manager;
 float CENTER_X = (SCREEN_WIDTH) / 2;
 float CENTER_Y = (SCREEN_HEIGHT) / 2;
-String bg_url = "http://lh5.ggpht.com/BJd07kKZyj7L7-Y0KH54Osqm8vRZJ7giQJIHqQBusPjfqtG-Ezjg5nPrcjksOfwRV9kAK0YT_3tGmAk";
-PImage bg_img;
-
+//String bg_url = "http://lh5.ggpht.com/BJd07kKZyj7L7-Y0KH54Osqm8vRZJ7giQJIHqQBusPjfqtG-Ezjg5nPrcjksOfwRV9kAK0YT_3tGmAk";
+//PImage bg_img;
+boolean solarSystemIsPaused = false;
 
 void setup() {
-  bg_url += "=s" + SCREEN_WIDTH + "-c";
-  bg_img = loadImage(bg_url, "png");
+  //bg_url += "=s" + SCREEN_WIDTH + "-c";
+  //bg_img = loadImage(bg_url, "png");
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
   manager = new VizManager();
   

@@ -39,9 +39,12 @@ class SolarSystem {
   }
   
   void addPlanetToRing (Planet p) {
-    Ring ring = getRingForWeight(p.getWeight());
+    float w = p.getWeight();
+    float pct = w / maxPlanetWeight;
+    Ring ring = getRingForWeight(w);
     ring.addPlanet(p);
     p.setRing(ring);
+    p.multiplySize(1 + pct);
   }
   
   void drawRings () {
@@ -84,7 +87,7 @@ class SolarSystem {
       root_url = url;
       return;
     }
-    Planet p = new Planet(nid, url, weight);
+    Planet p = new Planet(nid, url, weight, weight);
     planetList.add(nid);
     planets.add(p);
     if (weight > maxPlanetWeight) {
@@ -97,8 +100,10 @@ class SolarSystem {
   
   void draw () {
     //background(bg_img);
-    background(backgroundColor);
-    drawCenter();
+    if (!solarSystemIsPaused) {
+      background(backgroundColor);
+      drawCenter();
+    }
     drawRings();
   } 
   

@@ -10,7 +10,9 @@ class EdgeSet():
    def __init__(self):
       self.edges = []
       self.keys = []
-
+      self.page = 0;
+      self.pageCount = 0;
+      
    def getUrl(self, username):
       cacheKey = 'url_%s' % username
       url = memcache.get(cacheKey)
@@ -101,16 +103,18 @@ class EdgeManager():
    def setCache(self, key, obj):
       memcache.set(key, obj, 1800)
       
-   def updateEdgesForUser(self, user_name):
-      cacheKey = "edgesFor%s" % user_name
-      nodeSets = self.fromCache(cacheKey)
+   def updateEdgesForUser(self, user_name, page):
+      cacheKey = "edgesFor%s%s" % (user_name, page)
+      data = self.fromCache(cacheKey)
       
-      if not nodeSets:
-         nodeSets = self.API.getAttributionSets(user_name)
-         self.setCache(cacheKey, nodeSets)
+      if not data:
+         data = self.API.getAttributionSets(user_name, page)
+         nodeSets = data['nodeSets']
+         self.setCache(cacheKey, data)
       
-      for nodeSet in nodeSets:
+      for nodeSet in data['nodeSets']:
          self.updateNodeSet(nodeSet)
+      return data
       
    def getEdgesForUser(self, user_name):
       edges = db.GqlQuery("SELECT * FROM Edge " +

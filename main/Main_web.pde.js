@@ -1,8 +1,6 @@
 int SCREEN_WIDTH = round(window.innerWidth * .99);
 int SCREEN_HEIGHT = round(window.innerHeight * .99);
-Graph g;
 color backgroundColor = color(0, 0, 0);
-String activeNode = "";
 int clickedX = 0;
 int clickedY = 0;
 int maxDisplayEdgeWeight = 7;
@@ -11,8 +9,10 @@ boolean isLoading = false;
 VizManager manager;
 float CENTER_X = (SCREEN_WIDTH) / 2;
 float CENTER_Y = (SCREEN_HEIGHT) / 2;
-String bg_url = "http://lh5.ggpht.com/BJd07kKZyj7L7-Y0KH54Osqm8vRZJ7giQJIHqQBusPjfqtG-Ezjg5nPrcjksOfwRV9kAK0YT_3tGmAk";
-PImage bg_img;
+//String bg_url = "http://lh5.ggpht.com/BJd07kKZyj7L7-Y0KH54Osqm8vRZJ7giQJIHqQBusPjfqtG-Ezjg5nPrcjksOfwRV9kAK0YT_3tGmAk";
+//PImage bg_img;
+//String default_graph_type = oApp.default_graph_type;
+boolean solarSystemIsPaused = false;
 
 var yourUsername = oApp.user_name;
 var stats = {
@@ -22,9 +22,9 @@ var stats = {
 };
 
 void setup() {
-	bg_url += "=s" + SCREEN_WIDTH + "-c";
+	//bg_url += "=s" + SCREEN_WIDTH + "-c";
   manager = new VizManager();
-  bg_img = loadImage(bg_url, "png");
+  //bg_img = loadImage(bg_url, "png");
   size(SCREEN_WIDTH, SCREEN_HEIGHT);
 	$('#header').show('slow');
 	$('#stats_div').show('slow');
@@ -46,6 +46,26 @@ void loadMoreFriends(String name) {
 	}
 }
 
+
+function toggleGraphType () {
+	var type = manager.getGraphType();
+	if (type === 'solar') {
+		manager.setGraphType('graph');
+		$('.solar').hide();
+		$('.graph').show();
+	} else {
+		manager.setGraphType('solar');
+		$('.graph').hide();
+		$('.solar').show();
+	}
+}
+
+$(document).ready(function () {
+	$('#stats_div').click(function () {
+		toggleGraphType();
+	});
+});
+
 function showLoading (text) {
 	$('#loading p').text(text + "... ");
 	$('#loading').show();
@@ -56,13 +76,26 @@ function hideLoading () {
 	isLoading = false;
 }
 
-function updateFriends (username) {
-	var data = {
-		'user_name': username ? username : oApp.user_name
-	};
-	showLoading("loading friends for " + data.user_name);
+function updateFriends (username, page) {
+	var page = page ? page : 1,
+	  username = username ? username : oApp.user_name,
+		data = {
+			'user_name': username ? username : oApp.user_name,
+			'page': page
+		};
+	if (page === 1) {
+		showLoading("loading friends for " + data.user_name);
+	}
 	$.getJSON('/update_friends', data, function (JSON) {
-		loadFriends(username);
+		var page = parseInt(JSON['page'], 10),
+			of = parseInt(JSON['pageCount'], 10);
+		if (page === of) {
+			loadFriends(data.user_name);
+		} else {
+			page++;
+			showLoading("loading friends for " + data.user_name + " (page " + page + " of " + of + ")");
+			updateFriends(data.user_name, page);
+		}
 	});
 }
 
@@ -96,16 +129,6 @@ void draw() {
   clickedX = 0;
   clickedY = 0;
 }
-
-
-$('#stats_div').click(function () {
-	var type = manager.getGraphType();
-	if (type === 'solar') {
-		manager.setGraphType('graph');
-	} else {
-		manager.setGraphType('solar');
-	}
-});
 
 
 

@@ -32,12 +32,24 @@ from edge import EdgeManager
 class UpdateFriends(webapp.RequestHandler):
    def get(self):
       user_name = self.request.get('user_name')
-      if not memcache.get(user_name + 'updated'):
-         ba = BnterOAuth(self.request.remote_addr)
-         edgeManager = EdgeManager(ba.getToken())
-         edgeManager.updateEdgesForUser(user_name.lower())
+      if memcache.get(user_name + 'updated'):
+         self.response.out.write(json.dumps({
+            "page": 1,
+            "pageCount": 1
+         }))
+         return
+         
+      ba = BnterOAuth(self.request.remote_addr)
+      edgeManager = EdgeManager(ba.getToken())
+      page = self.request.get('page')
+      info = edgeManager.updateEdgesForUser(user_name.lower(), page)
+      if info['page'] == info['pageCount']:
+         logging.info("Update friends for %s" % user_name)
          memcache.set(user_name + 'updated', 1, 6000)
-      self.response.out.write(json.dumps({"alldone":True}))
+      self.response.out.write(json.dumps({
+         "page": info['page'],
+         "pageCount": info['pageCount']
+      }))
 
 class GetFriends(webapp.RequestHandler):
    def get(self):
@@ -71,7 +83,8 @@ class Main(webapp.RequestHandler):
          self.redirect('/get_oauth')
       
       template_values = {
-        'user_name': self.request.get('user_name')
+        'user_name': self.request.get('user_name'),
+        'hide_welcome': self.request.get('hide_welcome')
       }
 
       path = os.path.join(os.path.dirname(__file__), '../html/index.html')
