@@ -1,7 +1,7 @@
 import os
 import sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(ROOT, 'httplib2'))
+sys.path.insert(0, ROOT)
 import httplib2
 from urllib import urlencode
 try:
@@ -11,7 +11,7 @@ except Exception:
 
 class Bnter():
    token = ''
-  
+   
    def __init__(self, token):
       self.token = token
    

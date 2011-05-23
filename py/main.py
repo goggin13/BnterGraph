@@ -74,6 +74,25 @@ class HandleOauth(webapp.RequestHandler):
       ba.setVerifier(oauth_token)
       self.redirect('/')
 
+class Logout(webapp.RequestHandler):
+   def get(self):
+      IP = self.request.remote_addr
+      ba = BnterOAuth(IP)
+      ba.flush()
+      self.redirect('/')
+
+class Demo(webapp.RequestHandler):
+   def get(self):
+      IP = '184.74.167.234'
+      ba = BnterOAuth(IP)
+      template_values = {
+        'user_name': 'laurenleto',
+        'hide_welcome': False
+      }
+
+      path = os.path.join(os.path.dirname(__file__), '../html/index.html')
+      self.response.out.write(template.render(path, template_values))
+
 class Main(webapp.RequestHandler):
    def get(self):
       IP = self.request.remote_addr
@@ -101,8 +120,10 @@ application = webapp.WSGIApplication(
                                     [
                                      ('/', Main),
                                      ('/get_oauth', GetOauth), 
+                                     ('/logout', Logout),
                                      ('/update_friends', UpdateFriends),
                                      ('/get_friends', GetFriends), 
+                                     ('/demo', Demo),
                                      ('/handle_oauth', HandleOauth)
                                     ], debug=True)
 

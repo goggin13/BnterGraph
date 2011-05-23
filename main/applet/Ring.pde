@@ -3,15 +3,15 @@ class Ring {
   float radius;
   float centerX;
   float centerY;
-  color ringColor2 = color(0, 255, 100);
-  color ringColor1 = color(0, 100, 255);
+  color ringColor1 = color(15, 25, 40);
+  color ringColor2 = color(0, 0, 255);
   ArrayList planets;
-  float ringIndex = 0;
-  float ringCount = 0;
-  float ringPct;
   int counter = 0;
+  int ringIndex = 0;
+  int ringCount = 0;
+  float ringPct;
   
-  Ring (float ringRadius,float i, float c) {
+  Ring (float ringRadius, int i, int c) {
     radius = ringRadius;
     centerX = SCREEN_WIDTH / 2;
     centerY = SCREEN_HEIGHT / 2;
@@ -19,6 +19,7 @@ class Ring {
     ringIndex = i;
     ringCount = c;
     ringPct = ringIndex / ringCount;
+    println(ringPct);
   }
   
   void addPlanet (Planet p) {
@@ -27,7 +28,7 @@ class Ring {
   
   void drawMe () {
     noFill();
-    stroke(lerpColor(ringColor1, ringColor2, ringPct));
+    stroke(lerpColor(ringColor1, ringColor2, 1));
     strokeWeight(width);
     ellipse(centerX, centerY, radius, radius );
   }

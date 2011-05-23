@@ -61,7 +61,7 @@ function toggleGraphType () {
 }
 
 $(document).ready(function () {
-	$('#stats_div').click(function () {
+	$('#graph_toggle').click(function () {
 		toggleGraphType();
 	});
 });
@@ -114,7 +114,10 @@ function loadFriends (username) {
 			}
 			stats.friends++;
 			stats.conversations += w;
-			manager.addEdge(n1['name'], n1['image'], n2['name'], n2['image'], w);
+			if (n1['image'].indexOf('default') === -1 
+					&& n2['image'].indexOf('default') === -1 ) {
+				manager.addEdge(n1['name'], n1['image'], n2['name'], n2['image'], w);
+			}
 		});
 		for (key in stats) {
 			$("#" + key).html(stats[key]);

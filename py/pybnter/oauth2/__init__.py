@@ -29,6 +29,10 @@ import random
 import urlparse
 import hmac
 import binascii
+import os
+import sys
+ROOT = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, ROOT)
 import httplib2
 
 try:

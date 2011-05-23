@@ -10,15 +10,20 @@
 			<input type='text' name="user_name"> <br/>
 			<input class='submit' type='submit' value='Graph me'>
 		</form>
-		<p>
-			Special thanks to...
+		<p style="text-align:center">
+			Or, view the <a href="/demo">Demo</a>.
+		</p>
+		<p style="text-align:center">
+			Special thanks to...<br/>
 			<a href="http://processing.org/" style="color:transparent" target="_blank">
-				<img id="processing_logo" src="http://lh5.ggpht.com/ddP0uXuAXrvU64eiRiS9Q7PIc0koj0-t4JsCxKpnh0AeLRZFQxC69frK5Mr_zr7df7BVFsX64XEoPQ=s40" alt="processing log" />
+				<img id="processing_logo" src="http://lh5.ggpht.com/ddP0uXuAXrvU64eiRiS9Q7PIc0koj0-t4JsCxKpnh0AeLRZFQxC69frK5Mr_zr7df7BVFsX64XEoPQ=s40" title="Processing" />
 			</a>
 			<a href="http://processingjs.org/" style="color:transparent; height:50px; width:50px" target="_blank">
-				<img id="processingjs_logo" src="http://lh4.ggpht.com/teEmFKLA-9-1A5gTt4QRjt_5ZdReYN1ipysIOOnX3UWfXBw38oOwdNR-5Pa-IAoURR0lfI-M0PfUScY=s40" alt="processing log" />
+				<img id="processingjs_logo" src="http://lh4.ggpht.com/teEmFKLA-9-1A5gTt4QRjt_5ZdReYN1ipysIOOnX3UWfXBw38oOwdNR-5Pa-IAoURR0lfI-M0PfUScY=s40" title="Processing JS" />
 			</a>
-			
+			<a href="http://code.google.com/appengine/" style="color:transparent; height:50px; width:50px" target="_blank">
+				<img src="http://lh5.ggpht.com/a4ogI9QCuPXLycXj-vWORUszB3E-9InGJ4szi8XV1X-PrNnUJSU8DtBvkppMEMifDHdTGwRIbRr2Ovkd=s55" title="Google App Engine" />
+			</a>
 		</p>
 	</div>
 {% else %}
@@ -51,8 +56,8 @@
 </script>
 
 <div id="header">
-	<span class="graph">Your Bnter Network</span>
-	<span class="solar">Your Bnter Solar System</span>
+	<span class="graph"><span class="person_label">Your</span> Network</span>
+	<span class="solar"><span class="person_label">Your</span> Solar System</span>
 </div>
 <div id="loading">
 	<img src='css/images/loading.gif' alt="Loading..." />
@@ -76,13 +81,14 @@
 		<div class="solar">
 			<p>
 				The planets are other Bnter users who you have been attributed in converations with.  The larger
-				the planets, and the closer their orbit to the sun (you), the more conversations you have in common.
+				the planets, and the closer their orbit to you, the more conversations you have in common.  Hover on
+				a planet to see information about that user. 
 			</p>
 			<p>
-				Click on any planet to change to warp to their solar system.
+				Click on any planet to change to their solar system.  Click their info box to see them on Bnter.
 			</p>
-			<p>
-				Click to dismiss
+			<p class='right'>
+				dismiss
 			</p>
 		</div>
 	</div>
@@ -113,13 +119,23 @@
 		Click me to see your Bnter
 		<span class="graph">Solar System</span>
 		<span class="solar">Network</span>
-	</p>		
+	</p>	
+	<p>
+	<span id="logout">
+		<a href="/logout">Log out</a>
+	</span><br/>
+		<a href="/demo">See Lauren's System</a>
+	</p>
 </div>
+
 <script type="text/javascript">
 	if (oApp.default_graph_type === 'solar') {
 		$('.graph').hide();
 	} else {
 		$('solar').hide();
 	}
+	$(document).ready(function () {
+		$('.person_label').html(oApp.user_name + "'s");
+	});
 </script>
 {% endif %}

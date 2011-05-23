@@ -7,7 +7,7 @@ body{
 
 #header {
 	font-size: 2em;
-  left: 20%;
+  left: 25%;
   position: absolute;
   text-align: center;
   width: 400px;
@@ -15,7 +15,7 @@ body{
 
 #stats_div {
   border: thin solid darkgray;
-  height: 150px;
+  height: 180px;
   position: absolute;
   top: 1%;
   left: 1%;
@@ -85,11 +85,14 @@ background: none repeat scroll 0 0 white;
     padding: 25px 0;
     width: 400px;
 }
-#bnter_logo{
-border: medium none;
+
+#bnter_logo {
 margin-left: 75px;
-width: 250px;
 color:transparent;
+}
+
+#bnter_logo img {
+	width: 250px;
 }
 
 #loading {
@@ -128,8 +131,17 @@ background: none repeat scroll 0 0 maroon;
 }
 
 #graph_toggle {
-	text-align:center;
-	padding:15px;
+	margin: 5px 0;
+  padding: 0 15px;
+  text-align: center;
 }
 
-#processing_logo
+a,
+a:visited {
+	color:white;
+}
+
+#user_name_form a, 
+#user_name_form a:visited{
+	color:black;
+}

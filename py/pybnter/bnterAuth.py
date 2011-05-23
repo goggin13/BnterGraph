@@ -58,7 +58,7 @@ class BnterOAuth():
       oauth_token_secret = request_token['oauth_token_secret']
       self.IP_OAuth = IPOAuth(ip = self.IP, 
                      request_token = oauth_token,
-							oauth_token = '',
+              oauth_token = '',
                      request_secret = oauth_token_secret)
       self.IP_OAuth.put()
       
@@ -85,6 +85,9 @@ class BnterOAuth():
       self.IP_OAuth.put()
       return self.getToken()
       
+   def flush(self):
+      if self.IP_OAuth:
+         self.IP_OAuth.delete()
 
 #ba = BnterOAuth()
 #ba.getOAuthClient(12)
